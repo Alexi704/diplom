@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    container_name: diplom_Calendar
+    image: postgres:13.5-alpine
+    restart: always
+    volumes:
+      - pg_data_todolist:/var/lib/postgresql/data
+    env_file:
+      - src/.env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    networks:
+      - backend_nw
+    healthcheck:
+      test: pg_isready -U postgres
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  pg_data_todolist:
+
+networks:
+  backend_nw:
+    driver: bridge
