@@ -24,6 +24,22 @@ services:
       timeout: 3s
       retries: 3
 
+  migrations:
+    build:
+      context: .
+    env_file:
+      - src/.env
+    environment:
+      POSTGRES_HOST: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: >
+      sh -c "python3 manage.py migrate"
+    networks:
+      - backend_nw
+
+
 volumes:
   pg_data_todolist:
 
