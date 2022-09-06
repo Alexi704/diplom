@@ -21,7 +21,8 @@ class UserAdmin(BaseUserAdmin):
         ('Permissions', {'fields': ('is_active',
                                     'is_staff',
                                     'is_superuser',
-                                    'groups',)},),
+                                    # 'groups',
+                                    )},),
         ('Important dates', {'fields': ('last_login',
                                         'date_joined',)},),)
     add_fieldsets = (
@@ -32,7 +33,8 @@ class UserAdmin(BaseUserAdmin):
         ('Permissions', {'fields': ('is_active',
                                     'is_staff',
                                     'is_superuser',
-                                    'groups',)},),
+                                    # 'groups',
+                                    )},),
     )
 
     # Делаем поля неизменными(только для чтения):
