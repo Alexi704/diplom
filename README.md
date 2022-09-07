@@ -26,5 +26,5 @@ ___
 6) Создать суперпользователя для входа в админку:
 0. [ ] python manage.py createsuperuser
 
-7) Запустить проект :zap::
+7) Запустить проект :zap::\
 :white_check_mark: python manage.py runserver
