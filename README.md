@@ -27,4 +27,4 @@ ___
 0. [ ] python manage.py createsuperuser
 
 7) Запустить проект :zap::
-0. [x] python manage.py runserver
+0. :white_check_mark: python manage.py runserver
