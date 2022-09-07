@@ -19,24 +19,25 @@ services:
     networks:
       - backend_nw
 
-  migrations:
-    build:
-      context: .
-    env_file:
-      - src/.env
-    environment:
-      POSTGRES_HOST: postgres
-    depends_on:
-      postgres:
-        condition: service_healthy
-    command: >
-      sh -c 'python3 manage.py migrate'
-    networks:
-      - backend_nw
+#  migrations:
+#    build:
+#      context: .
+#    env_file:
+#      - src/.env
+#    environment:
+#      POSTGRES_HOST: postgres
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#    command: >
+#      sh -c "python manage.py migrate"
+#    networks:
+#      - backend_nw
 
   api:
     build:
       context: .
+      dockerfile: src/Dockerfile
     restart: always
     env_file:
       - src/.env
@@ -45,10 +46,9 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-      migrations:
-        condition: service_completed_successfully
-    command: >
-      sh -c 'python3 manage.py runserver 0.0.0.0:8000'
+#      migrations:
+#        condition: service_completed_successfully
+    command: python manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
     healthcheck:
@@ -60,7 +60,7 @@ services:
       - backend_nw
       - frontend_nw
     volumes:
-      - ./sources/:/opt/todolist
+      - ./src/:/opt/todolist
 
   frontend:
     image: sermalenk/skypro-front:lesson-34
