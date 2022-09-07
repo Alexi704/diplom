@@ -3,15 +3,14 @@ version: '3.9'
 services:
 
   postgres:
-
-    image: postgres:14.0-alpine
+    image: postgres:14.5-alpine
     restart: always
     env_file:
       - src/.env
     volumes:
       - pg_data_todolist:/var/lib/postgresql/data
     healthcheck:
-      test:  ["CMD-SHELL", "pg_isready -U postgres"]
+      test:  pg_isready -U tuman8 -d todolist
       interval: 5s
       timeout: 3s
       retries: 3
