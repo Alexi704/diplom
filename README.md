@@ -19,12 +19,12 @@ ___
 4) Создать базу данных:
 0. [ ] docker-compose up -d
 
-5) Накатить миграции:
+5) Накатить миграции :beers::
 0. [ ] python manage.py makemigrations
 1. [ ] python manage.py migrate
 
 6) Создать суперпользователя для входа в админку:
 0. [ ] python manage.py createsuperuser
 
-7) Запустить проект:
-0. [x] python manage.py runserver :zap:
+7) Запустить проект :zap::
+0. [x] python manage.py runserver
