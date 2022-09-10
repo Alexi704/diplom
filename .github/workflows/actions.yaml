@@ -56,7 +56,7 @@ jobs:
       - name: Rander template 0
         run: |
           echo "$VAULT_PASSWORD" > /tmp/.vault_pass.txt
-      - name: Storeartefacts
+      - name: Store artefacts
         uses: actions/upload-artifact@v3
         with:
           name: pass
