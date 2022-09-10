@@ -54,6 +54,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
-          source: "deploy/"
+          source: "deploy/*"
           target: diplom
           strip_components: 1
