@@ -49,7 +49,7 @@ jobs:
           mv deploy/env deploy deploy/.env
           printf "\nTAG_NAME=${{ steps.tag.outputs.tag }}" >> deploy/.env
       - name: Copy on server
-        uses: appleboy/spc-action@master
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
