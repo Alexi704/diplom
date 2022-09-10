@@ -50,7 +50,7 @@ jobs:
           echo "$VAULT_PASSWORD" | ansible-vault decrypt ./deploy/env
           echo "$VAULT_PASSWORD" | ansible-vault decrypt ./deploy/docker-compose.yaml
           echo "$VAULT_PASSWORD" | ansible-vault decrypt ./deploy/nginx/default.conf
-          mv deploy/env deploy deploy/.env
+          mv deploy/env deploy/.env
           printf "\nTAG_NAME=${{ steps.tag.outputs.tag }}" >> deploy/.env
       - name: Copy on server
         uses: appleboy/scp-action@master
