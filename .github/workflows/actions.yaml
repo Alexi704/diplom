@@ -48,14 +48,14 @@ jobs:
         with:
           strip_v: true
 
-#      - name: Rander template 0
-#        run: |
-#          echo "$VAULT_PASSWORD" > /tmp/.vault_pass.txt
-#      - name: Store artefacts
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: pass
-#          path: /tmp/.vault_pass.txt
+      - name: Rander template 0
+        run: |
+          echo "$VAULT_PASSWORD" > /tmp/.vault_pass.txt
+      - name: Store artefacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pass
+          path: /tmp/.vault_pass.txt
 
       - name: Rander template
         run: |
