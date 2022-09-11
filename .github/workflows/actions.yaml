@@ -26,12 +26,12 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./src/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
+          file: ./src/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/todolist:${{ steps.tag.outputs.tag }}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/todolist:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/todolist:buildcache,mode=max
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/diplom:${{ steps.tag.outputs.tag }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/diplom:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/diplom:buildcache,mode=max
 
   deploy:
     needs: build
@@ -47,14 +47,7 @@ jobs:
         uses: dawidd6/action-get-tag@v1
         with:
           strip_v: true
-      - name: Rander template 0
-        run: |
-          echo "$VAULT_PASSWORD" > /tmp/.vault_pass.txt
-      - name: Store artefacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: pass
-          path: /tmp/.vault_pass.txt
+
       - name: Rander template
         run: |
           echo "$VAULT_PASSWORD" > /tmp/.vault_pass.txt
@@ -70,5 +63,5 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: "deploy/*"
-          target: todolist
+          target: diplom
           strip_components: 1
