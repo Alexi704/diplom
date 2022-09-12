@@ -2,9 +2,10 @@ name: Build and deploy action
 on:
   push:
     tags:
-      - v*
+      - 'v*'
 
 jobs:
+
   build:
     runs-on: ubuntu-22.04
     steps:
@@ -15,7 +16,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ secrets.DOCKER_HUB_USERNAME }}/diplom
+          images: ${{ secrets.DOCKER_HUB_USERNAME }}/diplom:${TAG_NAME:-latest}
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
