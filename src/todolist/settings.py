@@ -7,6 +7,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 from pathlib import Path
+from typing import Any
 
 import environ
 
@@ -32,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'core',
 ]
 
@@ -97,3 +99,56 @@ STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR.parent.joinpath('deploy', 'nginx', 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING: dict[str, Any] = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'health-check': {
+            '()': 'todolist.filters.HealthCheckFilter',
+        }
+    },
+    'formatters': {
+        'console': {
+            'format': '%(asctime)s - %(levelname)s - %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+        'sample': {
+            'format': '%(asctime)s - %(levelname)s - %(module)s - %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['health-check'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'sample',
+        },
+        'project': {
+            'level': 'DEBUG',
+            'filters': ['health-check'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'sample',
+        },
+    },
+    'loggers': {
+        '': {
+            'level': 'DEBUG',
+            'handlers': ['project'],
+        },
+        'django.server': {
+            'level': 'INFO',
+            'handlers': ['console'],
+        },
+    }
+}
+
+if env.bool('SQL_ECHO', False):
+    LOGGING['loggers'].update({
+        'django.db': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False
+        }
+    })
