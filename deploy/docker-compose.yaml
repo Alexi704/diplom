@@ -18,7 +18,7 @@ services:
       - backend_nw
 
   api:
-    image: tuman8/diplom:${TAG_NAME:-latest}
+    image: ${DOCKER_HUB_USERNAME}/diplom:latest
     restart: always
     env_file:
       - .env
@@ -28,6 +28,8 @@ services:
       postgres:
         condition: service_healthy
     command: python manage.py runserver 0.0.0.0:8000
+    expose:
+      - 8000
     healthcheck:
       test: curl -sS http://127.0.0.1:8000/ping || exit 1
       interval: 3s
