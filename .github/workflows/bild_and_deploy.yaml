@@ -49,7 +49,7 @@ jobs:
 
       - name: Collect Static
         run: |
-          cd deploy/.env .env
+          cp deploy/.env .env
           docker run \
             --user 0 \
             --rm \
