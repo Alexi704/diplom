@@ -11,7 +11,7 @@ class PasswordField(serializers.CharField):
     def __init__(self, **kwargs):
         kwargs['style'] = {'input_type': 'password'}
         kwargs.setdefault('write_only', True)
-        super.__init__(**kwargs)
+        super().__init__(**kwargs)
         self.validators.append(validate_password)
 
 
@@ -25,7 +25,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password_repeat']:
-            raise ValidationError('Password mast match')
+            raise ValidationError('Password must match')
         return attrs
 
     def create(self, validated_data):
