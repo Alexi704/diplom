@@ -9,7 +9,7 @@ from core.models import User
 class PasswordField(serializers.CharField):
 
     def __int__(self, **kwargs):
-        kwargs['style'] = {'input_type', 'password'}
+        kwargs['style'] = {'input_type': 'password'}
         kwargs.setdefault('write_only', True)
         super().__init__(**kwargs)
         self.validators.append(validate_password)
