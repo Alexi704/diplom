@@ -3,14 +3,16 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 
 from core.models import User
-from core.serializers import CreateUserSerializer, LoginSerializer, ProfileSerializer
+from core.serializers import CreateUserSerializer, LoginSerializer, ProfileSerializer, UpdatePasswordSerializer
 
 
 class SignupView(generics.CreateAPIView):
+    """Создание пользователя"""
     serializer_class = CreateUserSerializer
 
 
 class LoginView(generics.CreateAPIView):
+    """Вход пользователя"""
     serializer_class = LoginSerializer
 
     def post(self, request, *args, **kwargs):
@@ -22,6 +24,7 @@ class LoginView(generics.CreateAPIView):
 
 
 class ProfileView(generics.RetrieveUpdateDestroyAPIView):
+    """Изменение данных пользователя"""
     queryset = User.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -32,3 +35,12 @@ class ProfileView(generics.RetrieveUpdateDestroyAPIView):
     def delete(self, request, *args, **kwargs):
         logout(request)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class UpdatePasswordView(generics.UpdateAPIView):
+    """Изменение пароля пользователя"""
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UpdatePasswordSerializer
+
+    def get_object(self):
+        return self.request.user

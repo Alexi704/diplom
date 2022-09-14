@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
-from rest_framework.exceptions import AuthenticationFailed, ValidationError
+from rest_framework.exceptions import AuthenticationFailed, NotAuthenticated, ValidationError
 
 from core.models import User
 
@@ -17,6 +17,7 @@ class PasswordField(serializers.CharField):
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
+    """Создание пользователя"""
     password = PasswordField(required=True)
     password_repeat = PasswordField(required=True)
 
@@ -36,6 +37,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
 
 class LoginSerializer(serializers.ModelSerializer):
+    """Вход пользователя"""
     username = serializers.CharField(required=True)
     password = PasswordField(required=True)
 
@@ -53,7 +55,29 @@ class LoginSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-
+    """Изменение данных пользователя"""
     class Meta:
         model = User
         fields = ['id', 'username', 'first_name', 'last_name', 'email']
+
+
+class UpdatePasswordSerializer(serializers.Serializer):
+    """Изменение пароля пользователя"""
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    old_password = PasswordField(required=True)
+    new_password = PasswordField(required=True)
+
+    def validate(self, attrs):
+        if not (user := attrs['user']):
+            raise NotAuthenticated
+        if not user.check_password(attrs['old_password']):
+            raise ValidationError({'old_password': 'field is incorrect'})
+        return attrs
+
+    def create(self, validated_data):
+        raise NotImplementedError
+
+    def update(self, instance, validated_data):
+        instance.password = make_password(validated_data['new_password'])
+        instance.save()
+        return instance
