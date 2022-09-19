@@ -8,7 +8,7 @@ class GoalCategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'user', 'is_deleted',)
     list_display_links = ('title',)
     search_fields = ('title', 'user',)
-    list_filter = ('is_deleted',)
+    list_filter = ('is_deleted', 'user')
     readonly_fields = ('created', 'updated',)
 
 
