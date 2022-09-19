@@ -15,6 +15,7 @@ psycopg2-binary = "^2.9.3"
 #pre-commit = "^2.20.0"
 djangorestframework = "^3.13.1"
 social-auth-app-django = "^5.0.0"
+django-filter = "^22.1"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.20.0"
