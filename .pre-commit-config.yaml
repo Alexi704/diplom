@@ -5,17 +5,17 @@ repos:
       - id: trailing-whitespace # убирает плавающие пробелы
       - id: end-of-file-fixer # убирает лишние пробелы в конце файла
       - id: double-quote-string-fixer # меняем двойные кавычки на одинарные
-#  - repo: https://github.com/PyCQA/isort
-#    rev: 5.10.1
-#    hooks:
-#      - id: isort # сортировка импортов в правильном порядке
-#  - repo: https://github.com/csachs/pyproject-flake8 # Проверка по pep8, в т.ч. корректная проверка длинны строки.
-#    rev: v0.0.1a5
-#    hooks:
-#      - id: pyproject-flake8
-#        name: pyproject-flake8
-#        description: 'A monkey patching wrapper to connect flake8 with pyproject.toml configuration'
-#        entry: pflake8
-#        language: python
-#        types: [python]
-#        require_serial: true
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort # сортировка импортов в правильном порядке
+  - repo: https://github.com/csachs/pyproject-flake8 # Проверка по pep8, в т.ч. корректная проверка длинны строки.
+    rev: v0.0.1a5
+    hooks:
+      - id: pyproject-flake8
+        name: pyproject-flake8
+        description: 'A monkey patching wrapper to connect flake8 with pyproject.toml configuration'
+        entry: pflake8
+        language: python
+        types: [python]
+        require_serial: true
