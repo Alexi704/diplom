@@ -11,6 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         offset = 0
+        # tg_client = TgClient(settings.BOT_TOKEN)
         while True:
             res = self.tg_client.get_updates(offset=offset)
             for item in res.result:
