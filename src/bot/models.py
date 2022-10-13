@@ -1,5 +1,6 @@
-from core.models import User
 from django.db import models
+
+from core.models import User
 
 
 class TgUser(models.Model):
