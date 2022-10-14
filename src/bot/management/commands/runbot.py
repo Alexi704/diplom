@@ -37,7 +37,7 @@ class Command(BaseCommand):
         if resp_goals:
             self.tg_client.send_message(msg.chat.id, '\n'.join(resp_goals))
         else:
-            self.tg_client.send_message(msg.chat.id, '[you have no goals]')
+            self.tg_client.send_message(msg.chat.id, '[you have no goals / у вас нет целей]')
 
     def handle_goals_category_list(self, msg: Message, tg_user: TgUser):
         resp_categories: list[str] = [
@@ -50,7 +50,7 @@ class Command(BaseCommand):
         if resp_categories:
             self.tg_client.send_message(msg.chat.id, 'Select category:\n' + '\n'.join(resp_categories))
         else:
-            self.tg_client.send_message(msg.chat.id, '[you have no categories]')
+            self.tg_client.send_message(msg.chat.id, '[you have no categories / у вас нет категорий]')
 
     def handle_verified_user(self, msg: Message, tg_user: TgUser):
         if msg.text == '/goals':
@@ -59,7 +59,7 @@ class Command(BaseCommand):
             self.handle_goals_category_list(msg, tg_user)
         elif msg.text == 'cancel' and self.storage.get_state(tg_user.chat_id):
             self.storage.reset(tg_user.chat_id)
-            self.tg_client.send_message(msg.chat.id, '[canceled]')
+            self.tg_client.send_message(msg.chat.id, '[canceled / отменен]')
         elif msg.text.startswith('/'):
             self.tg_client.send_message(msg.chat.id, '[unknown command / неизвестная команда]')
 
