@@ -14,10 +14,11 @@ class GoalCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Goal)
 class GoalAdmin(admin.ModelAdmin):
+    """ админка Goals -> Цели """
     list_display = ('id', 'title', 'user', 'category', 'status', 'priority')
     search_fields = ('title', 'description',)
-    list_filter = ('status', 'priority')
-    readonly_fields = ('created', 'updated',)
+    list_filter = ('status', 'priority', 'user')
+    readonly_fields = ('created', 'updated', 'user')
 
 
 @admin.register(GoalComment)

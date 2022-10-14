@@ -12,6 +12,7 @@ repos:
     rev: 5.10.1
     hooks:
       - id: isort
+        name: isort (python)
   - repo: https://github.com/csachs/pyproject-flake8
     rev: v5.0.4a1.post1
     hooks:
