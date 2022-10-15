@@ -19,21 +19,6 @@ services:
     networks:
       - backend_nw
 
-#  migrations:
-#    build:
-#      context: .
-#    env_file:
-#      - src/.env
-#    environment:
-#      POSTGRES_HOST: postgres
-#    depends_on:
-#      postgres:
-#        condition: service_healthy
-#    command: >
-#      sh -c "python manage.py migrate"
-#    networks:
-#      - backend_nw
-
   api:
     build:
       context: .
