@@ -39,7 +39,7 @@ jobs:
       ANSIBLE_VAULT_PASSWORD_FILE: /tmp/.vault_pass.txt
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Data assembly
         run: |
