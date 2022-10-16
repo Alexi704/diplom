@@ -120,6 +120,8 @@ class Command(BaseCommand):
         elif msg.text == '/cancel' and self.storage.get_state(tg_user.chat_id):
             self.storage.reset(tg_user.chat_id)
             self.tg_client.send_message(msg.chat.id, '[canceled / операция отменена]')
+        elif msg.text == '/verification' and self.storage.get_state(tg_user.chat_id):
+            self.handle_unverified_user(msg=msg, tg_user=tg_user)
         elif state := self.storage.get_state(tg_user.chat_id):
             match state:
                 case StateEnum.CREATE_CATEGORY_SELECT:
