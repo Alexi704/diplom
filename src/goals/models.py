@@ -16,6 +16,7 @@ class Board(BaseModel):
     is_deleted = models.BooleanField(verbose_name='Удалена', default=False)
 
     class Meta:
+        ordering = ['title']
         verbose_name = 'Доска'
         verbose_name_plural = 'Доски'
 

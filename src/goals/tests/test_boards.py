@@ -107,6 +107,7 @@ class BoardListTestCase(APITestCase):
             Board(title='board_1'),
             Board(title='board_2'),
         ])
+        boards.append(Board.objects.create(title='board_4', is_deleted=True))
         BoardParticipant.objects.bulk_create([
             BoardParticipant(board=board, user=user)
             for board in boards
