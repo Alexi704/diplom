@@ -6,10 +6,10 @@ from rest_framework import filters, generics, permissions
 from goals.filters import GoalDateFilter
 from goals.models import Board, Goal, GoalCategory, GoalComment
 from goals.permissions import BoardPermission, CommentsPermissions, GoalCategoryPermissions, GoalPermission, \
-    IsOwnerOrReadOnly,
+    IsOwnerOrReadOnly
 from goals.serializers import BoardCreateSerializer, BoardListSerializer, BoardSerializer, \
     GoalCategoryCreateSerializer, GoalCategorySerializer, GoalCommentCreateSerializer, GoalCommentSerializer, \
-    GoalCreateSerializer, GoalSerializer,
+    GoalCreateSerializer, GoalSerializer
 
 
 class BoardCreateView(generics.CreateAPIView):
