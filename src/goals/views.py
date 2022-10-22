@@ -1,20 +1,19 @@
 from django.db import transaction
 from django.db.models import Q
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters, generics
+from rest_framework import filters, generics, permissions
 
 from goals.filters import GoalDateFilter
 from goals.models import Board, Goal, GoalCategory, GoalComment
 from goals.permissions import BoardPermission, CommentsPermissions, GoalCategoryPermissions, GoalPermission, \
-    IsOwnerOrReadOnly
+    IsOwnerOrReadOnly,
 from goals.serializers import BoardCreateSerializer, BoardListSerializer, BoardSerializer, \
     GoalCategoryCreateSerializer, GoalCategorySerializer, GoalCommentCreateSerializer, GoalCommentSerializer, \
-    GoalCreateSerializer, GoalSerializer
+    GoalCreateSerializer, GoalSerializer,
 
 
 class BoardCreateView(generics.CreateAPIView):
-    # model = Board
-    permission_classes = [BoardPermission]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = BoardCreateSerializer
 
 

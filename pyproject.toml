@@ -18,6 +18,8 @@ social-auth-app-django = "^5.0.0"
 django-filter = "^22.1"
 pydantic = "^1.10.2"
 requests = "^2.28.1"
+parameterized = "^0.8.1"
+drf-spectacular = "^0.24.2"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.20.0"

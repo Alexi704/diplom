@@ -27,6 +27,7 @@ DEBUG = env('DEBUG')
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    'drf_spectacular',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,12 +43,16 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'DEFAULT_FILTER_BACKENDS': (
-        'django_filters.rest_framework.DjangoFilterBackend',
-    ),
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
 }
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'TodoList (diplom) API',
+    'DESCRIPTION': 'API под TodoList',
+    'VERSION': '1.0'
+}
 
 AUTH_USER_MODEL = 'core.User'
 
@@ -102,7 +107,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # LANGUAGE_CODE = 'ru'
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Novosibirsk'
 USE_I18N = True
 USE_TZ = True
 
@@ -165,7 +171,6 @@ if env.bool('SQL_ECHO', False):
             'propagate': False
         }
     })
-
 
 # Social Oauth:
 SOCIAL_AUTH_JSONFIELD_ENABLED = True
