@@ -12,6 +12,8 @@ urlpatterns = [
     path('oauth/', include('social_django.urls', namespace='social')),
     path('goals/', include('goals.urls')),
     path('bot/', include('bot.urls')),
+
+    # подключаем swagger
     path('swagger/schema-download/', SpectacularAPIView.as_view(), name='schema'),
     path('swagger/', SpectacularSwaggerView.as_view(url_name='schema')),
 ]
