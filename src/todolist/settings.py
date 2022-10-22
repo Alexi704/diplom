@@ -27,7 +27,6 @@ DEBUG = env('DEBUG')
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
-    'drf_spectacular',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +39,7 @@ INSTALLED_APPS = [
     'core',
     'goals',
     'bot',
+    'drf_spectacular',
 ]
 
 REST_FRAMEWORK = {
