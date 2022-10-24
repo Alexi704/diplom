@@ -50,7 +50,7 @@ diplom
 + POSTGRES_PORT=порт через который подключена БД
 + VK_OAUTH2_KEY=идентификационный ключ от ВК
 + VK_OAUTH2_SECRET=секретный ключ от ВК
-+ BOT_TOKEN
++ BOT_TOKEN=токен телеграмм-бота
 
 4) Создать базу данных:
 0. [ ] docker-compose up -d
