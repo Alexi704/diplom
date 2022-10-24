@@ -38,5 +38,6 @@ flowchart TB
 7) Запустить проект :zap::\
 :white_check_mark: python src/manage.py runserver<br />
 <br />
-8) Запуск тестов:\
+
+8) Запуск тестов:<br />
 :pick: python src/manage.py test src
