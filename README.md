@@ -52,15 +52,15 @@ diplom
 + VK_OAUTH2_SECRET=секретный ключ от ВК
 + BOT_TOKEN=токен телеграмм-бота
 
-4) Создать базу данных:
-0. [ ] docker-compose up -d
+4) Создать базу данных:\
+:arrow_right: docker-compose up -d
 
-5) Накатить миграции :beers::
-0. [ ] python src/manage.py makemigrations
-1. [ ] python src/manage.py migrate
+5) Накатить миграции :beers::\
+:arrow_right: python src/manage.py makemigrations\
+:arrow_right: python src/manage.py migrate
 
-6) Создать суперпользователя для входа в админку:
-0. [ ] python src/manage.py createsuperuser
+6) Создать суперпользователя для входа в админку:\
+:arrow_right: python src/manage.py createsuperuser
 
 7) Запустить проект :zap::\
 :white_check_mark: python src/manage.py runserver<br />
