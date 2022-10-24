@@ -3,10 +3,37 @@ ___
 ## стек (python3.10, Django, Postgres)
 ___
 **СТРУКТУРА ПРОЕКТА:**
+
 ```
-flowchart TB
-	node[diplom]
+diplom
+ └── .github
+ │    └── workflows
+ │         └── bild_and_deploy.yaml
+ └───deploy
+ │    └──nginx
+ │    │   └── ...
+ │    └── .env
+ │    └── docker-compose.yaml
+ └── src
+ │    └── bot
+ │    │    └── ... файлы, отвечающие за телеграмм-бота
+ │    └── core
+ │    │    └── ... файлы, отвечающие за модель User
+ │    └── goals
+ │    │    └── ... файлы, отвечающие за модель Board & Goals
+ │    └── todolist
+ │    │    └── ... корневые настройки проекта
+ │    └── entrypoint.sh
+ │    └── manage.py
+ └── .dockerignore
+ └── .pre-commit-config.yaml
+ └── Dockerfile
+ └── README.md
+ └── docker-compose.yaml
+ └── poetry.lock
+ └── pyproject.toml
 ```
+
 
 **ЗАПУСК:**
 1) Клонировать проект, создать виртуальное окружение.
@@ -39,5 +66,5 @@ flowchart TB
 :white_check_mark: python src/manage.py runserver<br />
 <br />
 
-8) Запуск тестов:<br />
+8) Запуск тестов:\
 :pick: python src/manage.py test src
