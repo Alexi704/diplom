@@ -1,2 +1,4 @@
 .env
 ../Dockerfile
+src/**/tests
+src/**/tests*.py
