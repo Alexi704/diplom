@@ -1,9 +1,12 @@
 # проект: "Calendar"
 ___
-## стек (python3.10, Django, Postgres)
+## стек используемых программ:
+1) python3.10
+2) Django
+3) Postgres
 ___
 **СТРУКТУРА ПРОЕКТА:**
-
+![структура проекта](search_todolist.jpg)
 ```
 diplom
  └── .github
