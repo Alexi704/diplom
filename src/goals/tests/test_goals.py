@@ -11,7 +11,7 @@ from goals.models import Board, BoardParticipant, Goal, GoalCategory
 class GoalsListTestCase(APITestCase):
 
     def test_auth_required(self):
-        response = self.client.get(reverse('list-categories'))
+        response = self.client.get(reverse('list-goals'))
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_success(self):
