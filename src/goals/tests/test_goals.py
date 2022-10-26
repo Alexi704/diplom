@@ -58,7 +58,7 @@ class GoalCreateTestCase(APITestCase):
         self.assertTrue(GoalCategory.objects.exists())
 
         self.assertFalse(Goal.objects.exists())
-        Goal.objects.create(
+        goal = Goal.objects.create(
             user_id=user.id,
             category=category,
             title='goal X',
@@ -68,3 +68,34 @@ class GoalCreateTestCase(APITestCase):
             due_date=datetime.now(),
         )
         self.assertTrue(Goal.objects.exists())
+
+        response = self.client.get(reverse('retrieve-update-destroy-goal', kwargs={'pk': goal.pk}))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class GoalRetrievedTestCase(APITestCase):
+
+    def setUp(self) -> None:
+        self.user = User.objects.create_user(username='test_user', password='test_password')
+
+        self.board = Board.objects.create(title='board_title')
+        BoardParticipant.objects.create(board=self.board, user=self.user, role=BoardParticipant.Role.owner)
+        self.category = GoalCategory.objects.create(user_id=self.user.id, title='cat_title', board=self.board)
+        self.goal = Goal.objects.create(
+            user_id=self.user.id,
+            category=self.category,
+            title='goal X',
+            description='anything description',
+            status=Goal.Status.to_do,
+            priority=Goal.Priority.medium,
+            due_date=datetime.now(),
+        )
+
+    def test_auth_required(self):
+        response = self.client.get(reverse('retrieve-update-destroy-goal', kwargs={'pk': self.goal.pk}))
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_success(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('retrieve-update-destroy-goal', kwargs={'pk': self.goal.pk}))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
