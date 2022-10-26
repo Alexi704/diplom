@@ -54,3 +54,32 @@ class CategoryCreateTestCase(APITestCase):
 
         response = self.client.get(reverse('list-categories'), kwargs={'id': category.pk})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_create_goal_user_role(self):
+        # создаем пользователей
+        user_1 = User.objects.create_user(username='user_1', password='test_password')
+        self.client.force_login(user_1)
+        user_2 = User.objects.create_user(username='user_2', password='test_password')
+        self.client.force_login(user_2)
+        user_3 = User.objects.create_user(username='user_3', password='test_password')
+        self.client.force_login(user_3)
+
+        # создаем доску от имени 1-го пользователя
+        board = Board.objects.create(title='board_title')
+        BoardParticipant.objects.create(board=board, user=user_1, role=BoardParticipant.Role.owner)
+
+        # добавляем на доску пользователей
+        BoardParticipant.objects.create(board=board, user=user_2, role=BoardParticipant.Role.writer)
+        BoardParticipant.objects.create(board=board, user=user_3, role=BoardParticipant.Role.reader)
+
+        # создаем категорию на доске
+        if BoardParticipant.Role.writer or BoardParticipant.Role.owner:
+            category = GoalCategory.objects.create(
+                user_id=user_1.id,
+                title='category title X',
+                board=board,
+            )
+            response = self.client.get(reverse('list-categories'), kwargs={'id': category.pk})
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        ...
