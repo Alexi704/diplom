@@ -58,11 +58,8 @@ class CategoryCreateTestCase(APITestCase):
     def test_create_goal_user_role(self):
         # создаем пользователей
         user_1 = User.objects.create_user(username='user_1', password='test_password')
-        self.client.force_login(user_1)
         user_2 = User.objects.create_user(username='user_2', password='test_password')
-        self.client.force_login(user_2)
         user_3 = User.objects.create_user(username='user_3', password='test_password')
-        self.client.force_login(user_3)
 
         # создаем доску от имени 1-го пользователя
         board = Board.objects.create(title='board_title')
@@ -72,14 +69,17 @@ class CategoryCreateTestCase(APITestCase):
         BoardParticipant.objects.create(board=board, user=user_2, role=BoardParticipant.Role.writer)
         BoardParticipant.objects.create(board=board, user=user_3, role=BoardParticipant.Role.reader)
 
-        # создаем категорию на доске
-        if BoardParticipant.Role.writer or BoardParticipant.Role.owner:
-            category = GoalCategory.objects.create(
-                user_id=user_1.id,
-                title='category title X',
-                board=board,
-            )
-            response = self.client.get(reverse('list-categories'), kwargs={'id': category.pk})
-            self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # логинимся под 1-м пользователем и создаем на доске категорию
+        self.client.force_login(user_1)
+        response = self.client.post(self.url, {'title': 'cat_title_user_1', 'is_deleted': False, 'board': board.id})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        ...
+        # логинимся под 2-м пользователем и создаем на доске категорию
+        self.client.force_login(user_2)
+        response = self.client.post(self.url, {'title': 'cat_title_user_2', 'is_deleted': False, 'board': board.id})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        # логинимся под 3-м пользователем и пробуем создать на доске категорию
+        self.client.force_login(user_3)
+        response = self.client.post(self.url, {'title': 'cat_title_user_3', 'is_deleted': False, 'board': board.id})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
