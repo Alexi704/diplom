@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Create env file and build image
         run: |
-          env > .env
+          env > src/.env
           docker-compose build
       - name: Run tests
         run: |
